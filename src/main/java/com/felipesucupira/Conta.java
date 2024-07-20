@@ -1,22 +1,24 @@
 package com.felipesucupira;
 
+// Essa classe representa uma conta onde se tem dinheiro, como uma conta
+// poupança, uma conta corrente ou até a carteira.
 public class Conta {
-    private String nomeDaConta;
+    private String nome;
     private float saldo;
 
 
     public Conta(String nome, float saldoInicial) {
-        nomeDaConta = nome;
+        this.nome = nome;
         saldo = saldoInicial;
     }
 
 
-    public String getNomeDaConta() {
-        return nomeDaConta;
+    public String getnome() {
+        return nome;
     }
 
-    public void setNomeDaConta(String nomeDaConta) {
-        this.nomeDaConta = nomeDaConta;
+    public void setnome(String nome) {
+        this.nome = nome;
     }
 
     public float getSaldo() {
@@ -24,11 +26,11 @@ public class Conta {
     }
     
 
-    public void adicionarSaldo(float valor) {
+    public void aumentarSaldo(float valor) {
         saldo += valor;
     }
 
-    public void removerSaldo(float valor) {
+    public void diminuirSaldo(float valor) {
         saldo -= valor;
     }
 }

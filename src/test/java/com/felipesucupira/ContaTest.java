@@ -18,19 +18,19 @@ public class ContaTest {
         Conta contaTeste = new Conta("teste", valorInicial);
         assertEquals(-100.00f, contaTeste.getSaldo(), 0);
 
-        contaTeste.adicionarSaldo(15.0f);
+        contaTeste.aumentarSaldo(15.0f);
         assertEquals(-85.0f, contaTeste.getSaldo(), 0);
     
-        contaTeste.adicionarSaldo(0.55f);
+        contaTeste.aumentarSaldo(0.55f);
         assertEquals(-84.45f, contaTeste.getSaldo(), 0);
     
-        contaTeste.adicionarSaldo(0f);
+        contaTeste.aumentarSaldo(0f);
         assertEquals(-84.45f, contaTeste.getSaldo(), 0);
 
-        contaTeste.adicionarSaldo(84.45f);
+        contaTeste.aumentarSaldo(84.45f);
         assertEquals(0, contaTeste.getSaldo(), 0);
         
-        contaTeste.adicionarSaldo(15.55f);
+        contaTeste.aumentarSaldo(15.55f);
         assertEquals(15.55f, contaTeste.getSaldo(), 0);
     }
 
@@ -40,19 +40,19 @@ public class ContaTest {
         Conta contaTeste = new Conta("teste", valorInicial);
         assertEquals(100.00, contaTeste.getSaldo(), 0);
     
-        contaTeste.removerSaldo(15.0f);
+        contaTeste.diminuirSaldo(15.0f);
         assertEquals(85.0f, contaTeste.getSaldo(), 0);
     
-        contaTeste.removerSaldo(0.55f);
+        contaTeste.diminuirSaldo(0.55f);
         assertEquals(84.45f, contaTeste.getSaldo(), 0);
     
-        contaTeste.removerSaldo(0f);
+        contaTeste.diminuirSaldo(0f);
         assertEquals(84.45f, contaTeste.getSaldo(), 0);
 
-        contaTeste.removerSaldo(84.45f);
+        contaTeste.diminuirSaldo(84.45f);
         assertEquals(0, contaTeste.getSaldo(), 0);
 
-        contaTeste.removerSaldo(15.55f);
+        contaTeste.diminuirSaldo(15.55f);
         assertEquals(-15.55f, contaTeste.getSaldo(), 0);
     }
 }
