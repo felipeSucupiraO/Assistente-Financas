@@ -23,6 +23,19 @@ public class Transferencia extends Transacao{
     }
 
 
+    public Conta getContaDestino() {
+        return contaDestino;
+    }
+
+    public Receita getTransacaoReceita() {
+        return transacaoReceita;
+    }
+
+    public Despesa getTransacaoDespesa() {
+        return transacaoDespesa;
+    }
+
+
     public void mudarContaAssociada(Conta novaConta) {
         transacaoDespesa.mudarContaAssociada(novaConta);
     }
