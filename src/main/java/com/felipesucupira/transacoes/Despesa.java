@@ -13,9 +13,9 @@ public class Despesa extends Transacao {
     public void setValor(float valor) {
         float diferenca = valor - getValor();
         if (diferenca > 0) {
-            getContaAssociada().aumentarSaldo(diferenca);
+            getContaAssociada().diminuirSaldo(diferenca);
         } else if (diferenca < 0) {
-            getContaAssociada().diminuirSaldo(diferenca * -1);
+            getContaAssociada().aumentarSaldo(diferenca * -1);
         }
         super.setValor(valor);
     }
