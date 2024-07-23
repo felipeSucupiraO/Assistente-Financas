@@ -45,18 +45,28 @@ public class Usuario {
     }
 
     public void adicionarTransacao(Transacao transacao) {
-        if (encontrarConta(transacao.getContaAssociada()) != -1) {
+        if (listaContas.contains(transacao.getContaAssociada())) {
             listaTransacoes.add(transacao);
         }
     }
 
-    private int encontrarConta(Conta contaProcurada) {
-        for (int i = 0; i < listaContas.size(); i++) {
-            if (listaContas.get(i) == contaProcurada) {
-                return i;
-            }
+    public void deletarConta(Conta conta) {
+        if (listaContas.contains(conta)) {
+            listaContas.remove(conta);
         }
+    }
 
-        return -1;
+    public void deletarConta(int index) {
+        listaContas.remove(index);
+    }
+
+    public void deletarTransacao(Transacao transacao) {
+        if (listaTransacoes.contains(transacao)) {
+            listaTransacoes.remove(transacao);
+        }
+    }
+
+    public void deletarTransacao(int index) {
+        listaTransacoes.remove(index);
     }
 }
