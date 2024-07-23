@@ -40,29 +40,12 @@ public class Usuario {
         return listaTransacoes;
     }
 
-
-    public void adicionarConta(String nome, float saldoInicial) {
-        Conta contaAdicionada = new Conta(nome, saldoInicial);
-        listaContas.add(contaAdicionada);
-    }
-
     public void adicionarConta(Conta contaAdicionada) {
         listaContas.add(contaAdicionada);
     }
-    
-    public void adicionarTransacao(String nome, float valor, boolean receita, Conta contaAssociada) {
-        Transacao transacaoAdicionada;
-        Conta contaCorreta = listaContas.get(encontrarConta(contaAssociada));
-        if (receita) {
-            transacaoAdicionada = new Receita(nome, valor, contaCorreta);
-        } else {
-            transacaoAdicionada = new Despesa(nome, valor, contaCorreta);
-        }
-        listaTransacoes.add(transacaoAdicionada);
-    }
 
     public void adicionarTransacao(Transacao transacao) {
-        if (encontrarConta(transacao.getContaAssociada()) == -1) {
+        if (encontrarConta(transacao.getContaAssociada()) != -1) {
             listaTransacoes.add(transacao);
         }
     }
