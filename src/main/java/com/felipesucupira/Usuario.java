@@ -1,13 +1,14 @@
 package com.felipesucupira;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.felipesucupira.transacoes.*;;
 
 public class Usuario {
     private String nome;
     private String senha;
-    private List<Conta> listaContas;
-    private List<Transacao> listaTransacoes;
+    private List<Conta> listaContas = new ArrayList<Conta>();
+    private List<Transacao> listaTransacoes = new ArrayList<Transacao>();
 
 
     public Usuario(String nome, String senha) {
@@ -40,18 +41,19 @@ public class Usuario {
         return listaTransacoes;
     }
 
+    
     public void adicionarConta(Conta contaAdicionada) {
         listaContas.add(contaAdicionada);
     }
 
     public void adicionarTransacao(Transacao transacao) {
-        if (listaContas.contains(transacao.getContaAssociada())) {
+        if (contaExiste(transacao.getContaAssociada())) {
             listaTransacoes.add(transacao);
         }
     }
 
     public void deletarConta(Conta conta) {
-        if (listaContas.contains(conta)) {
+        if (contaExiste(conta)) {
             listaContas.remove(conta);
         }
     }
@@ -61,12 +63,20 @@ public class Usuario {
     }
 
     public void deletarTransacao(Transacao transacao) {
-        if (listaTransacoes.contains(transacao)) {
+        if (transacaoExiste(transacao)) {
             listaTransacoes.remove(transacao);
         }
     }
 
     public void deletarTransacao(int index) {
         listaTransacoes.remove(index);
+    }
+
+    private boolean contaExiste(Conta conta) {
+        return listaContas.contains(conta); 
+    }
+
+    private boolean transacaoExiste(Transacao transacao) {
+        return listaTransacoes.contains(transacao);
     }
 }
