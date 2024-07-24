@@ -1,4 +1,7 @@
-package com.felipesucupira;
+package com.felipesucupira.utils;
+
+import com.felipesucupira.Usuario;
+import com.felipesucupira.mediator.Mediator;;
 
 public class UsuarioCreator {
     public static Mediator mediator;

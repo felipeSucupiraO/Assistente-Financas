@@ -1,8 +1,9 @@
-package com.felipesucupira;
+package com.felipesucupira.mediator;
 
 import com.felipesucupira.transacoes.Despesa;
 import com.felipesucupira.transacoes.Receita;
 import com.felipesucupira.transacoes.Transacao;
+import com.felipesucupira.Usuario;
 
 public class Mediator {
     Usuario usuario;
