@@ -2,6 +2,7 @@ package com.felipesucupira.transacoes;
 
 import java.time.LocalDate;
 import com.felipesucupira.*;
+import com.felipesucupira.mediator.RelacaoTransacoesContasHandler;
 
 // Representa uma transação de qualquer tipo, que será
 // definido por suas classes filhas: Receita,
@@ -11,6 +12,7 @@ public abstract class Transacao {
     private float valor;
     private Conta contaAssociada;
     private LocalDate data;
+    private RelacaoTransacoesContasHandler mediator;
 
     
     public Transacao(String nome, float valor, Conta contaAssociada) {
@@ -33,6 +35,7 @@ public abstract class Transacao {
     }
 
     public void setValor(float valor) {
+        mediator.valorTransacaoModificado(this, valor);
         this.valor = valor;
     }
 
@@ -44,6 +47,17 @@ public abstract class Transacao {
         return contaAssociada;
     }
 
+    public RelacaoTransacoesContasHandler getMediator() {
+        return mediator;
+    }
 
-    public abstract void mudarContaAssociada(Conta novaConta);
+    public void setMediator(RelacaoTransacoesContasHandler mediator) {
+        this.mediator = mediator;
+    }
+
+
+    public void mudarContaAssociada(Conta novaConta) {
+        mediator.contaDaTransacaoModificada(this, novaConta);
+        contaAssociada = novaConta;
+    }
 }
