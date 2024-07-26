@@ -10,6 +10,44 @@ import com.felipesucupira.transacoes.Receita;
 import com.felipesucupira.transacoes.Transacao;
 
 public class RelacaoTransacoesContasHandlerTest {
+    @Test
+    public void notifyContaCriadaTest() {
+        Usuario usuario = new Usuario("Savio", "@123456");
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
+        
+        mediator.notifyContaCriada(new Conta("Banco X", 1000));
+        assertEquals(1000, usuario.getBalancoTotal(), 0);
+    }
+    
+    @Test
+    public void notifySaldoContaAumentadoTest() {
+        Usuario usuario = new Usuario("Savio", "@123456");
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
+        usuario.adicionarConta(new Conta("Banco X", 1000));
+        
+        mediator.notifySaldoContaAumentado(usuario.getListaContas().get(4), 500);
+        assertEquals(1500, usuario.getBalancoTotal(), 0);
+    }
+    
+    @Test
+    public void notifySaldoContaDiminuidoTest() {
+        Usuario usuario = new Usuario("Savio", "@123456");
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
+        usuario.adicionarConta(new Conta("Banco X", 1000));
+        
+        mediator.notifySaldoContaDiminuido(usuario.getListaContas().get(4), 1000);
+        assertEquals(0, usuario.getBalancoTotal(), 0);
+    }
+    
+    @Test
+    public void notifyContaDeletadaTest() {
+        Usuario usuario = new Usuario("Savio", "@123456");
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
+        usuario.adicionarConta(new Conta("Banco X", 1000));
+            
+        mediator.notifyContaDeletada(usuario.getListaContas().get(4));
+        assertEquals(0, usuario.getBalancoTotal(), 0);
+    }
 
     @Test
     public void notifyTransacaoAdicionadaTest() {
