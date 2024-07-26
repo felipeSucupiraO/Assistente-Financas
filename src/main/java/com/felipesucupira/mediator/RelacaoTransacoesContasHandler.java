@@ -23,6 +23,35 @@ public class RelacaoTransacoesContasHandler {
     
     // -------------------------------------------------------------------------
     
+    public void notifyContaCriada(Conta contaCriada) {
+        if (contaExiste(contaCriada)) {
+            // error
+        }
+        usuario.aumentarBalancoTotal(contaCriada.getSaldo());
+    }
+
+    public void notifySaldoContaAumentado(Conta conta, float valor) {
+        if (!contaExiste(conta)) {
+            // error
+        }
+        usuario.aumentarBalancoTotal(valor);
+    }
+
+    public void notifySaldoContaDiminuido(Conta conta, float valor) {
+        if (!contaExiste(conta)) {
+            // error
+        }
+        usuario.diminuirBalancoTotal(valor);
+    }
+
+    public void notifyContaDeletada(Conta conta) {
+        if (!contaExiste(conta)) {
+            // error
+        }
+
+        usuario.diminuirBalancoTotal(conta.getSaldo());
+    }
+    
     public void notifyTransacaoAdicionada(Transacao transacaoCriada) {
         if (!contaExiste(transacaoCriada.getContaAssociada())) {
             // error
@@ -30,6 +59,7 @@ public class RelacaoTransacoesContasHandler {
         
         if (transacaoCriada instanceof Despesa) {
             transacaoCriada.getContaAssociada().diminuirSaldo(transacaoCriada.getValor());
+
         } else if (transacaoCriada instanceof Receita) {
             transacaoCriada.getContaAssociada().aumentarSaldo(transacaoCriada.getValor());
         }
