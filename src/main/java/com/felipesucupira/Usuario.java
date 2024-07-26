@@ -12,6 +12,7 @@ public class Usuario {
     private List<Conta> listaContas = new ArrayList<Conta>();
     private List<Transacao> listaTransacoes = new ArrayList<Transacao>();
     private RelacaoTransacoesContasHandler mediatorTransacoesContas;
+    private float balancoTotal = 0;
 
     // -------------------------------------------------------------------------
     
@@ -19,6 +20,12 @@ public class Usuario {
         this.nome = nome;
         this.senha = senha;
         mediatorTransacoesContas = new RelacaoTransacoesContasHandler(this);
+
+        // criação de contas padrão em todo usuário
+        adicionarConta(new Conta("Conta Poupança", 0));
+        adicionarConta(new Conta("Conta Corrente", 0));
+        adicionarConta(new Conta("Cartão de Crédito", 0));
+        adicionarConta(new Conta("Carteira", 0));
     }
     
     // -------------------------------------------------------------------------
@@ -50,10 +57,24 @@ public class Usuario {
     public List<Transacao> getListaTransacoes() {
         return listaTransacoes;
     }
+
+    public float getBalancoTotal() {
+        return balancoTotal;
+    }
     
     // -------------------------------------------------------------------------
     
+    public void aumentarBalancoTotal(float valor) {
+        balancoTotal += valor;
+    }
+
+    public void diminuirBalancoTotal(float valor) {
+        balancoTotal -= valor;
+    }
+
     public void adicionarConta(Conta contaAdicionada) {
+        contaAdicionada.setMediatorTransacoesContas(mediatorTransacoesContas);
+        mediatorTransacoesContas.notifyContaCriada(contaAdicionada);
         listaContas.add(contaAdicionada);
     }
         
@@ -62,27 +83,28 @@ public class Usuario {
         mediatorTransacoesContas.notifyTransacaoAdicionada(transacao);
         listaTransacoes.add(transacao);
     }
-
+    
     public void deletarConta(int index) {
         Conta contaDeletada = listaContas.get(index);
         deletarConta(contaDeletada);
     }
-
+    
     public void deletarConta(Conta conta) {
         for (Transacao transacao : listaTransacoes) {
             if (transacao.getContaAssociada() == conta) {
                 deletarTransacao(transacao);
             }
         }
-
+        
+        mediatorTransacoesContas.notifyContaDeletada(conta);
         listaContas.remove(conta);
     }
-
+    
     public void deletarTransacao(int index) {
         Transacao transacaoDeletada = listaTransacoes.get(index);
         deletarTransacao(transacaoDeletada);
     }
-
+    
     public void deletarTransacao(Transacao transacao) {
         mediatorTransacoesContas.notifyTransacaoDeletada(transacao);
         listaTransacoes.remove(transacao);
