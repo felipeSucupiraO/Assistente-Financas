@@ -12,25 +12,25 @@ import com.felipesucupira.transacoes.Transacao;
 public class RelacaoTransacoesContasHandlerTest {
 
     @Test
-    public void transacaoAdicionadaTest() {
+    public void notifyTransacaoAdicionadaTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
-        RelacaoTransacoesContasHandler mediator = usuario.getMediator();
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1);
         Transacao transacao2 = new Despesa("Aluguel", 1100, conta1);
         
         usuario.adicionarConta(conta1);
-        mediator.transacaoAdicionada(transacao1);
+        mediator.notifyTransacaoAdicionada(transacao1);
         assertEquals(2100, conta1.getSaldo(), 0);
         
-        mediator.transacaoAdicionada(transacao2);
+        mediator.notifyTransacaoAdicionada(transacao2);
         assertEquals(1000, conta1.getSaldo(), 0);
     }
     
     @Test
-    public void contaDaTransacaoModificadaTest() {
+    public void notifyContaDaTransacaoModificadaTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
-        RelacaoTransacoesContasHandler mediator = usuario.getMediator();
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Conta conta2 = new Conta("Conta corrente", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1);
@@ -38,52 +38,52 @@ public class RelacaoTransacoesContasHandlerTest {
 
         usuario.adicionarConta(conta1);
         usuario.adicionarConta(conta2);
-        mediator.transacaoAdicionada(transacao1);
-        mediator.transacaoAdicionada(transacao2);
+        mediator.notifyTransacaoAdicionada(transacao1);
+        mediator.notifyTransacaoAdicionada(transacao2);
 
-        mediator.contaDaTransacaoModificada(transacao1, conta2);
+        mediator.notifyContaDaTransacaoModificada(transacao1, conta2);
         assertEquals(0, conta1.getSaldo(), 0);
         assertEquals(1000, conta2.getSaldo(), 0);
         
-        mediator.contaDaTransacaoModificada(transacao2, conta1);
+        mediator.notifyContaDaTransacaoModificada(transacao2, conta1);
         assertEquals(-1100, conta1.getSaldo(), 0);
         assertEquals(2100, conta2.getSaldo(), 0);
     }
     
     @Test
-    public void valorTransacaoModificadoTest() {
+    public void notifyValorTransacaoModificadoTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
-        RelacaoTransacoesContasHandler mediator = usuario.getMediator();
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1);
         Transacao transacao2 = new Despesa("Aluguel", 1100, conta1);
         
         usuario.adicionarConta(conta1);
-        mediator.transacaoAdicionada(transacao1);
-        mediator.transacaoAdicionada(transacao2);
-        mediator.valorTransacaoModificado(transacao1, 3000);
+        mediator.notifyTransacaoAdicionada(transacao1);
+        mediator.notifyTransacaoAdicionada(transacao2);
+        mediator.notifyValorTransacaoModificado(transacao1, 3000);
         assertEquals(1900, conta1.getSaldo(), 0);
         
-        mediator.valorTransacaoModificado(transacao2, 2000);
+        mediator.notifyValorTransacaoModificado(transacao2, 2000);
         assertEquals(1000, conta1.getSaldo(), 0);
     }
     
     @Test
-    public void transacaoDeletadaTest() {
+    public void notifyTransacaoDeletadaTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
-        RelacaoTransacoesContasHandler mediator = usuario.getMediator();
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1);
         Transacao transacao2 = new Despesa("Aluguel", 1100, conta1);
 
         usuario.adicionarConta(conta1);
-        mediator.transacaoAdicionada(transacao1);
-        mediator.transacaoAdicionada(transacao2);
+        mediator.notifyTransacaoAdicionada(transacao1);
+        mediator.notifyTransacaoAdicionada(transacao2);
         
-        mediator.transacaoDeletada(transacao1);
+        mediator.notifyTransacaoDeletada(transacao1);
         assertEquals(-1100, conta1.getSaldo(), 0);
 
-        mediator.transacaoDeletada(transacao2);
+        mediator.notifyTransacaoDeletada(transacao2);
         assertEquals(0, conta1.getSaldo(), 0);
     }
 }

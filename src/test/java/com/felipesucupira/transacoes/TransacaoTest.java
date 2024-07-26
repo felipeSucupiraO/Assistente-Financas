@@ -10,7 +10,7 @@ public class TransacaoTest {
     @Test
     public void setValorTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
-        RelacaoTransacoesContasHandler mediator = usuario.getMediator();
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         usuario.adicionarConta(conta1);
         
@@ -28,7 +28,7 @@ public class TransacaoTest {
     @Test
     public void mudarContaAssociadaTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
-        RelacaoTransacoesContasHandler mediator = usuario.getMediator();
+        RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Conta conta2 = new Conta("Carteira", 10);
         usuario.adicionarConta(conta1);

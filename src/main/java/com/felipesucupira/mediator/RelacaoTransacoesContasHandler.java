@@ -9,18 +9,21 @@ import com.felipesucupira.Conta;
 public class RelacaoTransacoesContasHandler {
     Usuario usuario;
 
+    // -------------------------------------------------------------------------
     
     public RelacaoTransacoesContasHandler(Usuario usuario) {
         this.usuario = usuario;
     }
     
+    // -------------------------------------------------------------------------
     
     public Usuario getUsuario() {
         return usuario;
     }
     
+    // -------------------------------------------------------------------------
     
-    public void transacaoAdicionada(Transacao transacaoCriada) {
+    public void notifyTransacaoAdicionada(Transacao transacaoCriada) {
         if (!contaExiste(transacaoCriada.getContaAssociada())) {
             // error
         }
@@ -32,7 +35,7 @@ public class RelacaoTransacoesContasHandler {
         }
     }
     
-    public void contaDaTransacaoModificada(Transacao transacaoModificada, Conta novaConta) {
+    public void notifyContaDaTransacaoModificada(Transacao transacaoModificada, Conta novaConta) {
         if (!contaExiste(transacaoModificada.getContaAssociada())) {
             // error
         }
@@ -51,7 +54,7 @@ public class RelacaoTransacoesContasHandler {
         return usuario.getListaContas().contains(conta);
     }
 
-    public void valorTransacaoModificado(Transacao transacaoModificada, float novoValor) {
+    public void notifyValorTransacaoModificado(Transacao transacaoModificada, float novoValor) {
         if (!transacaoExiste(transacaoModificada)) {
             // error
         }
@@ -81,7 +84,7 @@ public class RelacaoTransacoesContasHandler {
     }
 
 
-    public void transacaoDeletada(Transacao transacaoDeletada) {
+    public void notifyTransacaoDeletada(Transacao transacaoDeletada) {
         if (!transacaoExiste(transacaoDeletada)) {
             // error
         }
