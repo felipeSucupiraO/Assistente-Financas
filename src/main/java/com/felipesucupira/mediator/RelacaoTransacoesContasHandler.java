@@ -24,39 +24,22 @@ public class RelacaoTransacoesContasHandler {
     // -------------------------------------------------------------------------
     
     public void notifyContaCriada(Conta contaCriada) {
-        if (contaExiste(contaCriada)) {
-            // error
-        }
         usuario.aumentarBalancoTotal(contaCriada.getSaldo());
     }
 
     public void notifySaldoContaAumentado(Conta conta, float valor) {
-        if (!contaExiste(conta)) {
-            // error
-        }
         usuario.aumentarBalancoTotal(valor);
     }
 
     public void notifySaldoContaDiminuido(Conta conta, float valor) {
-        if (!contaExiste(conta)) {
-            // error
-        }
         usuario.diminuirBalancoTotal(valor);
     }
 
     public void notifyContaDeletada(Conta conta) {
-        if (!contaExiste(conta)) {
-            // error
-        }
-
         usuario.diminuirBalancoTotal(conta.getSaldo());
     }
     
     public void notifyTransacaoAdicionada(Transacao transacaoCriada) {
-        if (!contaExiste(transacaoCriada.getContaAssociada())) {
-            // error
-        }
-        
         if (transacaoCriada instanceof Despesa) {
             transacaoCriada.getContaAssociada().diminuirSaldo(transacaoCriada.getValor());
 
@@ -66,10 +49,6 @@ public class RelacaoTransacoesContasHandler {
     }
     
     public void notifyContaDaTransacaoModificada(Transacao transacaoModificada, Conta novaConta) {
-        if (!contaExiste(transacaoModificada.getContaAssociada())) {
-            // error
-        }
-        
         Conta contaAntiga = transacaoModificada.getContaAssociada();
         if (transacaoModificada instanceof Despesa) {
             contaAntiga.aumentarSaldo(transacaoModificada.getValor());
@@ -79,16 +58,8 @@ public class RelacaoTransacoesContasHandler {
             novaConta.aumentarSaldo(transacaoModificada.getValor());
         }
     }
-    
-    private boolean contaExiste(Conta conta) {
-        return usuario.getListaContas().contains(conta);
-    }
 
     public void notifyValorTransacaoModificado(Transacao transacaoModificada, float novoValor) {
-        if (!transacaoExiste(transacaoModificada)) {
-            // error
-        }
-        
         float diferenca = novoValor - transacaoModificada.getValor();
         if (transacaoModificada instanceof Despesa) {
             valorDespesaModificado(diferenca, transacaoModificada);
@@ -115,18 +86,10 @@ public class RelacaoTransacoesContasHandler {
 
 
     public void notifyTransacaoDeletada(Transacao transacaoDeletada) {
-        if (!transacaoExiste(transacaoDeletada)) {
-            // error
-        }
-        
         if (transacaoDeletada instanceof Despesa) {
             transacaoDeletada.getContaAssociada().aumentarSaldo(transacaoDeletada.getValor());
         } else if (transacaoDeletada instanceof Receita) {
             transacaoDeletada.getContaAssociada().diminuirSaldo(transacaoDeletada.getValor());
         }
-    }
-
-    private boolean transacaoExiste(Transacao transacao) {
-        return usuario.getListaTransacoes().contains(transacao);
     }
 }
