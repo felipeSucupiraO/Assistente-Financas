@@ -73,12 +73,20 @@ public class Usuario {
     }
 
     public void adicionarConta(Conta contaAdicionada) {
+        if (contaExiste(contaAdicionada)) {
+            throw new IllegalArgumentException("A conta sendo adicionada já está no usuário.");
+        }
+        
         contaAdicionada.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyContaCriada(contaAdicionada);
         listaContas.add(contaAdicionada);
     }
         
     public void adicionarTransacao(Transacao transacao) {
+        if (!contaExiste(transacao.getContaAssociada())) {
+            throw new IllegalArgumentException("A conta associada à transação não existe no usuário.");
+        }
+        
         transacao.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyTransacaoAdicionada(transacao);
         listaTransacoes.add(transacao);
@@ -90,6 +98,10 @@ public class Usuario {
     }
     
     public void deletarConta(Conta conta) {
+        if (!contaExiste(conta)) {
+            throw new IllegalArgumentException("A conta sendo deletada não existe no usuário.");
+        }
+        
         for (Transacao transacao : listaTransacoes) {
             if (transacao.getContaAssociada() == conta) {
                 deletarTransacao(transacao);
@@ -99,6 +111,10 @@ public class Usuario {
         mediatorTransacoesContas.notifyContaDeletada(conta);
         listaContas.remove(conta);
     }
+
+    private boolean contaExiste(Conta conta) {
+        return listaContas.contains(conta);
+    }
     
     public void deletarTransacao(int index) {
         Transacao transacaoDeletada = listaTransacoes.get(index);
@@ -106,7 +122,15 @@ public class Usuario {
     }
     
     public void deletarTransacao(Transacao transacao) {
+        if (!transacaoExiste(transacao)) {
+            throw new IllegalArgumentException("A transação sendo deletada não existe no usuário.");
+        }
+        
         mediatorTransacoesContas.notifyTransacaoDeletada(transacao);
         listaTransacoes.remove(transacao);
+    }
+
+    private boolean transacaoExiste(Transacao transacao) {
+        return listaTransacoes.contains(transacao);
     }
 }
