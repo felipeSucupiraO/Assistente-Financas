@@ -36,6 +36,10 @@ public abstract class Transacao {
     }
     
     public void setValor(float valor) {
+        if (valor < 0) {
+            throw new IllegalArgumentException("O valor da transação não pode ser negativo.");
+        }
+        
         mediatorTransacoesContas.notifyValorTransacaoModificado(this, valor);
         this.valor = valor;
     }
