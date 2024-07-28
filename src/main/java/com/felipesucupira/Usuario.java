@@ -90,6 +90,11 @@ public class Usuario {
         transacao.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyTransacaoAdicionada(transacao);
         listaTransacoes.add(transacao);
+        if (transacao instanceof Transferencia) {
+            Transferencia transferencia = (Transferencia) transacao;
+            adicionarTransacao(transferencia.getTransacaoDespesa());
+            adicionarTransacao(transferencia.getTransacaoReceita());
+        }
     }
     
     public void deletarConta(int index) {
@@ -128,6 +133,11 @@ public class Usuario {
         
         mediatorTransacoesContas.notifyTransacaoDeletada(transacao);
         listaTransacoes.remove(transacao);
+        if (transacao instanceof Transferencia) {
+            Transferencia transferencia = (Transferencia) transacao;
+            deletarTransacao(transferencia.getTransacaoDespesa());
+            deletarTransacao(transferencia.getTransacaoReceita());
+        }
     }
 
     private boolean transacaoExiste(Transacao transacao) {
