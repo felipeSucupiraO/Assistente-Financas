@@ -85,6 +85,8 @@ public class Usuario {
     public void adicionarTransacao(Transacao transacao) {
         if (!contaExiste(transacao.getContaAssociada())) {
             throw new IllegalArgumentException("A conta associada à transação não existe no usuário.");
+        } else if (transacaoExiste(transacao)) {
+            throw new IllegalArgumentException("A transação sendo adicionada já existe no usuário.");
         }
         
         transacao.setMediatorTransacoesContas(mediatorTransacoesContas);
