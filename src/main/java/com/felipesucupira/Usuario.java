@@ -85,11 +85,18 @@ public class Usuario {
     public void adicionarTransacao(Transacao transacao) {
         if (!contaExiste(transacao.getContaAssociada())) {
             throw new IllegalArgumentException("A conta associada à transação não existe no usuário.");
+        } else if (transacaoExiste(transacao)) {
+            throw new IllegalArgumentException("A transação sendo adicionada já existe no usuário.");
         }
         
         transacao.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyTransacaoAdicionada(transacao);
         listaTransacoes.add(transacao);
+        if (transacao instanceof Transferencia) {
+            Transferencia transferencia = (Transferencia) transacao;
+            adicionarTransacao(transferencia.getTransacaoDespesa());
+            adicionarTransacao(transferencia.getTransacaoReceita());
+        }
     }
     
     public void deletarConta(int index) {
@@ -128,6 +135,11 @@ public class Usuario {
         
         mediatorTransacoesContas.notifyTransacaoDeletada(transacao);
         listaTransacoes.remove(transacao);
+        if (transacao instanceof Transferencia) {
+            Transferencia transferencia = (Transferencia) transacao;
+            deletarTransacao(transferencia.getTransacaoDespesa());
+            deletarTransacao(transferencia.getTransacaoReceita());
+        }
     }
 
     private boolean transacaoExiste(Transacao transacao) {
