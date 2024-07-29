@@ -1,4 +1,4 @@
-package com.felipesucupira;
+package com.felipesucupira.api;
 
 public class Main {
     public static void main(String[] args) {
