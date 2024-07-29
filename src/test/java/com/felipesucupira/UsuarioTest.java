@@ -1,6 +1,9 @@
 package com.felipesucupira;
 
 import static org.junit.Assert.assertEquals;
+
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 import com.felipesucupira.transacoes.Despesa;
@@ -45,7 +48,7 @@ public class UsuarioTest {
     public void adicionarTransacaoTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
         Conta conta1 = new Conta("Poupança", 0);
-        Transacao transacao = new Despesa("Aluguel", 1100, conta1);
+        Transacao transacao = new Despesa("Aluguel", 1100, conta1, LocalDate.now().toString());
         usuario.adicionarConta(conta1);
         
         usuario.adicionarTransacao(transacao);
@@ -69,7 +72,7 @@ public class UsuarioTest {
     public void deletarTransacaoTest() {
         Usuario usuario = new Usuario("Savio", "@123456");
         Conta conta1 = new Conta("Poupança", 0);
-        Transacao transacao = new Despesa("Aluguel", 1100, conta1);
+        Transacao transacao = new Despesa("Aluguel", 1100, conta1, LocalDate.now().toString());
         usuario.adicionarConta(conta1);
         
         usuario.adicionarTransacao(transacao);
