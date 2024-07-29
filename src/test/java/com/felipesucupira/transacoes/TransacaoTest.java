@@ -1,6 +1,9 @@
 package com.felipesucupira.transacoes;
 
 import static org.junit.Assert.assertEquals;
+
+import java.time.LocalDate;
+
 import org.junit.Test;
 import com.felipesucupira.Conta;
 import com.felipesucupira.Usuario;
@@ -14,12 +17,12 @@ public class TransacaoTest {
         Conta conta1 = new Conta("Poupança", 0);
         usuario.adicionarConta(conta1);
         
-        Transacao receita = new Receita("receita", 10f, conta1);
+        Transacao receita = new Receita("receita", 10f, conta1, LocalDate.now().toString());
         usuario.adicionarTransacao(receita);
         receita.setValor(50);
         assertEquals(50, receita.getValor(), 0);
         
-        Transacao despesa = new Despesa("receita", 50f, conta1);
+        Transacao despesa = new Despesa("receita", 50f, conta1, LocalDate.now().toString());
         usuario.adicionarTransacao(despesa);
         despesa.setValor(0);
         assertEquals(0, despesa.getValor(), 0);
@@ -33,7 +36,7 @@ public class TransacaoTest {
         Conta conta2 = new Conta("Carteira", 10);
         usuario.adicionarConta(conta1);
         usuario.adicionarConta(conta2);
-        Transacao receita = new Receita("receita", 10f, conta1);
+        Transacao receita = new Receita("receita", 10f, conta1, LocalDate.now().toString());
         usuario.adicionarTransacao(receita);
 
         receita.mudarContaAssociada(conta2);

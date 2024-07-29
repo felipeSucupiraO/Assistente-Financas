@@ -11,13 +11,13 @@ public class Transferencia extends Transacao{
     
     // -------------------------------------------------------------------------
     
-    public Transferencia (String nome, float valor, Conta contaAssociada, Conta contaDestino) {
-        super(nome, valor, contaAssociada);
+    public Transferencia (String nome, float valor, Conta contaAssociada, Conta contaDestino, String data) {
+        super(nome, valor, contaAssociada, data);
         this.contaDestino = contaDestino;
         
-        transacaoReceita = new Receita(nome + " (transferência)", valor, contaDestino);
+        transacaoReceita = new Receita(nome + " (transferência)", valor, contaDestino, data);
         transacaoReceita.setEParteDeTransferencia(true);
-        transacaoDespesa = new Despesa(nome + " (transferência)", valor, contaAssociada);
+        transacaoDespesa = new Despesa(nome + " (transferência)", valor, contaAssociada, data);
         transacaoDespesa.setEParteDeTransferencia(true);
     }
     
@@ -58,5 +58,12 @@ public class Transferencia extends Transacao{
     public void mudarContaDestino(Conta novaConta) {
         transacaoReceita.mudarContaAssociada(novaConta);
         contaDestino = novaConta;
+    }
+
+    @Override
+    public void mudarDataPara(String data) {
+        super.mudarDataPara(data);
+        transacaoDespesa.mudarDataPara(data);
+        transacaoReceita.mudarDataPara(data);
     }
 }

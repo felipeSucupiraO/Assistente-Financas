@@ -2,6 +2,8 @@ package com.felipesucupira.mediator;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 import com.felipesucupira.Conta;
 import com.felipesucupira.Usuario;
@@ -54,8 +56,8 @@ public class RelacaoTransacoesContasHandlerTest {
         Usuario usuario = new Usuario("Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
-        Transacao transacao1 = new Receita("Salário", 2100, conta1);
-        Transacao transacao2 = new Despesa("Aluguel", 1100, conta1);
+        Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
+        Transacao transacao2 = new Despesa("Aluguel", 1100, conta1, LocalDate.now().toString());
         
         usuario.adicionarConta(conta1);
         mediator.notifyTransacaoAdicionada(transacao1);
@@ -71,8 +73,8 @@ public class RelacaoTransacoesContasHandlerTest {
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Conta conta2 = new Conta("Conta corrente", 0);
-        Transacao transacao1 = new Receita("Salário", 2100, conta1);
-        Transacao transacao2 = new Despesa("Aluguel", 1100, conta2);
+        Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
+        Transacao transacao2 = new Despesa("Aluguel", 1100, conta2, LocalDate.now().toString());
 
         usuario.adicionarConta(conta1);
         usuario.adicionarConta(conta2);
@@ -93,8 +95,8 @@ public class RelacaoTransacoesContasHandlerTest {
         Usuario usuario = new Usuario("Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
-        Transacao transacao1 = new Receita("Salário", 2100, conta1);
-        Transacao transacao2 = new Despesa("Aluguel", 1100, conta1);
+        Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
+        Transacao transacao2 = new Despesa("Aluguel", 1100, conta1, LocalDate.now().toString());
         
         usuario.adicionarConta(conta1);
         mediator.notifyTransacaoAdicionada(transacao1);
@@ -111,8 +113,8 @@ public class RelacaoTransacoesContasHandlerTest {
         Usuario usuario = new Usuario("Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
-        Transacao transacao1 = new Receita("Salário", 2100, conta1);
-        Transacao transacao2 = new Despesa("Aluguel", 1100, conta1);
+        Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
+        Transacao transacao2 = new Despesa("Aluguel", 1100, conta1, LocalDate.now().toString());
 
         usuario.adicionarConta(conta1);
         mediator.notifyTransacaoAdicionada(transacao1);
