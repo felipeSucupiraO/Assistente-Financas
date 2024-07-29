@@ -15,10 +15,11 @@ public abstract class Transacao {
 
     // -------------------------------------------------------------------------
     
-    public Transacao(String nome, float valor, Conta contaAssociada) {
+    public Transacao(String nome, float valor, Conta contaAssociada, String data) {
         this.nome = nome;
         this.valor = valor;
         this.contaAssociada = contaAssociada;
+        this.data = LocalDate.parse(data);
     }
     
     // -------------------------------------------------------------------------
@@ -51,6 +52,10 @@ public abstract class Transacao {
     protected void setContaAssociada(Conta contaAssociada) {
         this.contaAssociada = contaAssociada;
     }
+
+    public LocalDate getData() {
+        return data;
+    }
     
     public RelacaoTransacoesContasHandler getMediatorTransacoesContas() {
         return mediatorTransacoesContas;
@@ -65,5 +70,9 @@ public abstract class Transacao {
     public void mudarContaAssociada(Conta novaConta) {
         mediatorTransacoesContas.notifyContaDaTransacaoModificada(this, novaConta);
         contaAssociada = novaConta;
+    }
+
+    public void mudarDataPara(String data) {
+        this.data = LocalDate.parse(data);
     }
 }

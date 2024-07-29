@@ -7,8 +7,8 @@ public class Despesa extends Transacao {
 
     // -------------------------------------------------------------------------
 
-    public Despesa (String nome, float valor, Conta contaAssociada) {
-        super(nome, valor, contaAssociada);
+    public Despesa (String nome, float valor, Conta contaAssociada, String data) {
+        super(nome, valor, contaAssociada, data);
     }
 
     // -------------------------------------------------------------------------
