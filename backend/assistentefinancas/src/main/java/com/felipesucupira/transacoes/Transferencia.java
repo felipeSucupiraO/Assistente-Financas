@@ -11,6 +11,20 @@ public class Transferencia extends Transacao{
     
     // -------------------------------------------------------------------------
     
+    public Transferencia () {
+        super();
+    }
+
+    public Transferencia (int id, String nome, float valor, Conta contaAssociada, Conta contaDestino, String data) {
+        super(id, nome, valor, contaAssociada, data);
+        this.contaDestino = contaDestino;
+        
+        transacaoReceita = new Receita(id + 1, nome + " (transferência)", valor, contaDestino, data);
+        transacaoReceita.setEParteDeTransferencia(true);
+        transacaoDespesa = new Despesa(id + 2, nome + " (transferência)", valor, contaAssociada, data);
+        transacaoDespesa.setEParteDeTransferencia(true);
+    }
+
     public Transferencia (String nome, float valor, Conta contaAssociada, Conta contaDestino, String data) {
         super(nome, valor, contaAssociada, data);
         this.contaDestino = contaDestino;

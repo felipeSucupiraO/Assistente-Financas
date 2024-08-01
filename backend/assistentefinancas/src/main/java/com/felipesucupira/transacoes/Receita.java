@@ -8,6 +8,14 @@ public class Receita extends Transacao {
 
     // -------------------------------------------------------------------------
     
+    public Receita() {
+        super();
+    }
+
+    public Receita (int id, String nome, float valor, Conta contaAssociada, String data) {
+        super(id, nome, valor, contaAssociada, data);
+    }
+    
     public Receita (String nome, float valor, Conta contaAssociada, String data) {
         super(nome, valor, contaAssociada, data);
     }

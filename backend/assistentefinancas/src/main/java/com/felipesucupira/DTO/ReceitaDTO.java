@@ -1,24 +1,25 @@
-package com.felipesucupira.transacoes;
+package com.felipesucupira.DTO;
 
 import com.felipesucupira.Conta;
+import com.felipesucupira.transacoes.Receita;
 
-public class Despesa extends Transacao {
+public class ReceitaDTO extends TransacaoDTO {
     private boolean eParteDeTransferencia = false;
 
     // -------------------------------------------------------------------------
-
-    public Despesa () {
-        super();
+    
+    public ReceitaDTO () {
+        
     }
 
-    public Despesa (int id, String nome, float valor, Conta contaAssociada, String data) {
+    public ReceitaDTO(int id, String nome, float valor, ContaDTO contaAssociada, String data) {
         super(id, nome, valor, contaAssociada, data);
     }
 
-    public Despesa (String nome, float valor, Conta contaAssociada, String data) {
+    public ReceitaDTO(String nome, float valor, ContaDTO contaAssociada, String data) {
         super(nome, valor, contaAssociada, data);
     }
-    
+
     // -------------------------------------------------------------------------
 
     public boolean eParteDeTransferencia() {
