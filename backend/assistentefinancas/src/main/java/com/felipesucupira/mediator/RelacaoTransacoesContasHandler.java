@@ -3,7 +3,6 @@ package com.felipesucupira.mediator;
 import com.felipesucupira.transacoes.Despesa;
 import com.felipesucupira.transacoes.Receita;
 import com.felipesucupira.transacoes.Transacao;
-import com.felipesucupira.transacoes.Transferencia;
 import com.felipesucupira.Usuario;
 import com.felipesucupira.Conta;
 

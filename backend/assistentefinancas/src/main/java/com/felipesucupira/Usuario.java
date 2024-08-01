@@ -7,29 +7,35 @@ import com.felipesucupira.transacoes.*;
 
 // Representa um usuário do programa, com as próprias transações e contas
 public class Usuario {
+    private int id;
     private String nome;
     private String senha;
     private List<Conta> listaContas = new ArrayList<Conta>();
+    int ultimoIdConta = 1;
     private List<Transacao> listaTransacoes = new ArrayList<Transacao>();
-    private RelacaoTransacoesContasHandler mediatorTransacoesContas;
+    int ultimoIdTransacao = 1;
     private float balancoTotal = 0;
+    private RelacaoTransacoesContasHandler mediatorTransacoesContas;
 
     // -------------------------------------------------------------------------
     
-    public Usuario(String nome, String senha) {
+    public Usuario(int id, String nome, String senha) {
+        this.id = id;
         this.nome = nome;
         this.senha = senha;
         mediatorTransacoesContas = new RelacaoTransacoesContasHandler(this);
-
-        // criação de contas padrão em todo usuário
-        adicionarConta(new Conta("Conta Poupança", 0));
-        adicionarConta(new Conta("Conta Corrente", 0));
-        adicionarConta(new Conta("Cartão de Crédito", 0));
-        adicionarConta(new Conta("Carteira", 0));
     }
     
     // -------------------------------------------------------------------------
     
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -72,6 +78,18 @@ public class Usuario {
         balancoTotal -= valor;
     }
 
+    public void adicionarListaContas(List<Conta> listaContas) {
+        for (Conta conta : listaContas) {
+            adicionarConta(conta);
+        }
+    }
+
+    public void adicionarListaTransacoes(List<Transacao> listaTransacoes) {
+        for (Transacao transacao : listaTransacoes) {
+            adicionarTransacao(transacao);
+        }
+    }
+
     public void adicionarConta(Conta contaAdicionada) {
         if (contaExiste(contaAdicionada)) {
             throw new IllegalArgumentException("A conta sendo adicionada já está no usuário.");
@@ -80,9 +98,14 @@ public class Usuario {
         contaAdicionada.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyContaCriada(contaAdicionada);
         listaContas.add(contaAdicionada);
+        contaAdicionada.setId(ultimoIdConta);
+        ultimoIdConta++;
     }
         
     public void adicionarTransacao(Transacao transacao) {
+        System.out.println("Adicionando transacao ao usuário");
+        System.out.println(transacao.getContaAssociada() == listaContas.get(0));
+        
         if (!contaExiste(transacao.getContaAssociada())) {
             throw new IllegalArgumentException("A conta associada à transação não existe no usuário.");
         } else if (transacaoExiste(transacao)) {
@@ -91,7 +114,11 @@ public class Usuario {
         
         transacao.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyTransacaoAdicionada(transacao);
+        
         listaTransacoes.add(transacao);
+        transacao.setId(ultimoIdTransacao);
+        ultimoIdTransacao++;
+        
         if (transacao instanceof Transferencia) {
             Transferencia transferencia = (Transferencia) transacao;
             adicionarTransacao(transferencia.getTransacaoDespesa());
