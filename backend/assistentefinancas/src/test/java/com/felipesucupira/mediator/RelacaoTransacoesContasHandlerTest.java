@@ -14,7 +14,7 @@ import com.felipesucupira.transacoes.Transacao;
 public class RelacaoTransacoesContasHandlerTest {
     @Test
     public void notifyContaCriadaTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(0, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         
         mediator.notifyContaCriada(new Conta("Banco X", 1000));
@@ -23,7 +23,7 @@ public class RelacaoTransacoesContasHandlerTest {
     
     @Test
     public void notifySaldoContaAumentadoTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         usuario.adicionarConta(new Conta("Banco X", 1000));
         
@@ -33,7 +33,7 @@ public class RelacaoTransacoesContasHandlerTest {
     
     @Test
     public void notifySaldoContaDiminuidoTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         usuario.adicionarConta(new Conta("Banco X", 1000));
         
@@ -43,7 +43,7 @@ public class RelacaoTransacoesContasHandlerTest {
     
     @Test
     public void notifyContaDeletadaTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         usuario.adicionarConta(new Conta("Banco X", 1000));
             
@@ -53,7 +53,7 @@ public class RelacaoTransacoesContasHandlerTest {
 
     @Test
     public void notifyTransacaoAdicionadaTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
@@ -69,7 +69,7 @@ public class RelacaoTransacoesContasHandlerTest {
     
     @Test
     public void notifyContaDaTransacaoModificadaTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Conta conta2 = new Conta("Conta corrente", 0);
@@ -92,7 +92,7 @@ public class RelacaoTransacoesContasHandlerTest {
     
     @Test
     public void notifyValorTransacaoModificadoTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
@@ -110,7 +110,7 @@ public class RelacaoTransacoesContasHandlerTest {
     
     @Test
     public void notifyTransacaoDeletadaTest() {
-        Usuario usuario = new Usuario("Savio", "@123456");
+        Usuario usuario = new Usuario(1, "Savio", "@123456");
         RelacaoTransacoesContasHandler mediator = usuario.getMediatorTransacoesContas();
         Conta conta1 = new Conta("Poupança", 0);
         Transacao transacao1 = new Receita("Salário", 2100, conta1, LocalDate.now().toString());
