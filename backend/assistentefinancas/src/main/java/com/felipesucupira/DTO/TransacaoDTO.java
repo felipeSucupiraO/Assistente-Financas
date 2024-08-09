@@ -1,14 +1,14 @@
 package com.felipesucupira.DTO;
 
 import java.time.LocalDate;
-import com.felipesucupira.Conta;
 
 public abstract class TransacaoDTO {
     private int id;
     private String nome;
     private float valor;
-    private ContaDTO contaAssociada;
+    private int idContaAssociada;
     private LocalDate data;
+    private String tipo;
 
     // -------------------------------------------------------------------------
     
@@ -16,19 +16,21 @@ public abstract class TransacaoDTO {
         
     }
 
-    public TransacaoDTO(int id, String nome, float valor, ContaDTO contaAssociada, String data) {
+    public TransacaoDTO(int id, String nome, float valor, int idContaAssociada, String data, String tipo) {
         this.id = id;
         this.nome = nome;
         this.valor = valor;
-        this.contaAssociada = contaAssociada;
+        this.idContaAssociada = idContaAssociada;
         this.data = LocalDate.parse(data);
+        this.tipo = tipo;
     }
     
-    public TransacaoDTO(String nome, float valor, ContaDTO contaAssociada, String data) {
+    public TransacaoDTO(String nome, float valor, int idContaAssociada, String data, String tipo) {
         this.nome = nome;
         this.valor = valor;
-        this.contaAssociada = contaAssociada;
+        this.idContaAssociada = idContaAssociada;
         this.data = LocalDate.parse(data);
+        this.tipo = tipo;
     }
 
     // -------------------------------------------------------------------------
@@ -51,11 +53,11 @@ public abstract class TransacaoDTO {
     public void setValor(float valor) {
         this.valor = valor;
     }
-    public ContaDTO getContaAssociada() {
-        return contaAssociada;
+    public int getIdContaAssociada() {
+        return idContaAssociada;
     }
-    public void setContaAssociada(ContaDTO contaAssociada) {
-        this.contaAssociada = contaAssociada;
+    public void setidContaAssociada(int idContaAssociada) {
+        this.idContaAssociada = idContaAssociada;
     }
     public LocalDate getData() {
         return data;
@@ -64,5 +66,11 @@ public abstract class TransacaoDTO {
         this.data = data;
     }
 
-    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }

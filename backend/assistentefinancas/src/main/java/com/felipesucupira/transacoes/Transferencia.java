@@ -53,6 +53,17 @@ public class Transferencia extends Transacao{
     public Conta getContaDestino() {
         return contaDestino;
     }
+
+    @Override
+    public void setContaAssociada(Conta contaAssociada) {
+        transacaoDespesa.setContaAssociada(contaAssociada);
+        super.setContaAssociada(contaAssociada);
+    }
+
+    public void setContaDestino(Conta contaDestino) {
+        transacaoReceita.setContaAssociada(contaDestino);
+        this.contaDestino = contaDestino;
+    }
     
     public Receita getTransacaoReceita() {
         return transacaoReceita;

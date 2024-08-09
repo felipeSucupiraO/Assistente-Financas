@@ -1,37 +1,34 @@
 package com.felipesucupira.DTO;
 
-import com.felipesucupira.Conta;
-import com.felipesucupira.transacoes.Despesa;
-import com.felipesucupira.transacoes.Receita;
-
 public class TransferenciaDTO extends TransacaoDTO {
-    private ContaDTO contaDestino;
+    private int idContaDestino;
     private ReceitaDTO transacaoReceita;
     private DespesaDTO transacaoDespesa;
     
     // -------------------------------------------------------------------------
     
     public TransferenciaDTO () {
-
+        this.transacaoReceita = new ReceitaDTO();
+        this.transacaoDespesa = new DespesaDTO();
     }
 
-    public TransferenciaDTO (int id, String nome, float valor, ContaDTO contaAssociada, ContaDTO contaDestino, String data) {
-        super(id, nome, valor, contaAssociada, data);
-        this.contaDestino = contaDestino;
+    public TransferenciaDTO (int id, String nome, float valor, int idContaAssociada, int idContaDestino, String data) {
+        super(id, nome, valor, idContaAssociada, data, "transferencia");
+        this.idContaDestino = idContaDestino;
         
-        transacaoReceita = new ReceitaDTO(id + 1, nome + " (transferência)", valor, contaDestino, data);
+        transacaoReceita = new ReceitaDTO(id + 1, nome + " (transferência)", valor, idContaAssociada, data);
         transacaoReceita.setEParteDeTransferencia(true);
-        transacaoDespesa = new DespesaDTO(id + 2, nome + " (transferência)", valor, contaAssociada, data);
+        transacaoDespesa = new DespesaDTO(id + 2, nome + " (transferência)", valor, idContaDestino, data);
         transacaoDespesa.setEParteDeTransferencia(true);
     }
 
-    public TransferenciaDTO (String nome, float valor, ContaDTO contaAssociada, ContaDTO contaDestino, String data) {
-        super(nome, valor, contaAssociada, data);
-        this.contaDestino = contaDestino;
+    public TransferenciaDTO (String nome, float valor, int idContaAssociada, int idContaDestino, String data) {
+        super(nome, valor, idContaAssociada, data, "transferencia");
+        this.idContaDestino = idContaDestino;
         
-        transacaoReceita = new ReceitaDTO(nome + " (transferência)", valor, contaDestino, data);
+        transacaoReceita = new ReceitaDTO(nome + " (transferência)", valor, idContaAssociada, data);
         transacaoReceita.setEParteDeTransferencia(true);
-        transacaoDespesa = new DespesaDTO(nome + " (transferência)", valor, contaAssociada, data);
+        transacaoDespesa = new DespesaDTO(nome + " (transferência)", valor, idContaDestino, data);
         transacaoDespesa.setEParteDeTransferencia(true);
     }
     
@@ -46,12 +43,13 @@ public class TransferenciaDTO extends TransacaoDTO {
 
     @Override
     public void setValor(float valor) {
+        super.setValor(valor);
         transacaoReceita.setValor(valor);
         transacaoDespesa.setValor(valor);
     }
     
-    public ContaDTO getContaDestino() {
-        return contaDestino;
+    public int getIdContaDestino() {
+        return idContaDestino;
     }
     
     public ReceitaDTO getTransacaoReceita() {

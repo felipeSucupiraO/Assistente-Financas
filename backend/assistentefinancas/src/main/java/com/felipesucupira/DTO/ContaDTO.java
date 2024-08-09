@@ -7,6 +7,15 @@ public class ContaDTO {
 
     // -------------------------------------------------------------------------
     
+    public ContaDTO() {
+        
+    }
+
+    public ContaDTO(String nome, float saldo) {
+        this.nome = nome;
+        this.saldo = saldo;
+    }
+
     public ContaDTO(int id, String nome, float saldo) {
         this.id = id;
         this.nome = nome;
