@@ -157,9 +157,20 @@ public class UsuarioController {
         return DTOConverter.converterUsuario(DatabaseHandler.lerPastaUsuario(idUsuario));
     }
 
+    @PostMapping("/deletarDespesaDoUsuario/{idDespesa}/{idUsuario}")
+    public UsuarioDTO deletarDespesa(@PathVariable int idDespesa, @PathVariable int idUsuario) {
+        DatabaseHandler.deletarDespesa(idUsuario, idDespesa);
+        return DTOConverter.converterUsuario(DatabaseHandler.lerPastaUsuario(idUsuario));
+    }
+
     @PostMapping("/deletarReceitaDoUsuario/{idReceita}/{idUsuario}")
     public UsuarioDTO deletarReceita(@PathVariable int idReceita, @PathVariable int idUsuario) {
         DatabaseHandler.deletarReceita(idUsuario, idReceita);
+        return DTOConverter.converterUsuario(DatabaseHandler.lerPastaUsuario(idUsuario));
+    }
+    @PostMapping("/deletarReceitaDoUsuario/{idTransferencia}/{idUsuario}")
+    public UsuarioDTO deletarTransferencia(@PathVariable int idTransferencia, @PathVariable int idUsuario) {
+        DatabaseHandler.deletarTransferencia(idUsuario, idTransferencia);
         return DTOConverter.converterUsuario(DatabaseHandler.lerPastaUsuario(idUsuario));
     }
 }
