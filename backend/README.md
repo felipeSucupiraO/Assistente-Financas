@@ -15,7 +15,7 @@ cd Assistente-Financas
 ### Instale as dependências
 Em seguida, instale as dependencias necessárias:
 ```
-cd backend
+cd backend/assistentefinancas
 mvn clean install
 ```
 
