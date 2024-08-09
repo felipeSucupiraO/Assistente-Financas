@@ -71,7 +71,7 @@ public abstract class Transacao {
         return contaAssociada;
     }
 
-    protected void setContaAssociada(Conta contaAssociada) {
+    public void setContaAssociada(Conta contaAssociada) {
         this.contaAssociada = contaAssociada;
     }
 

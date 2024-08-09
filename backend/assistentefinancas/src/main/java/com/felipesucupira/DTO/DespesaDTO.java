@@ -1,8 +1,5 @@
 package com.felipesucupira.DTO;
 
-import com.felipesucupira.Conta;
-import com.felipesucupira.transacoes.Despesa;
-
 public class DespesaDTO extends TransacaoDTO {
     private boolean eParteDeTransferencia = false;
 
@@ -12,12 +9,12 @@ public class DespesaDTO extends TransacaoDTO {
         
     }
 
-    public DespesaDTO (int id, String nome, float valor, ContaDTO contaAssociada, String data) {
-        super(id, nome, valor, contaAssociada, data);
+    public DespesaDTO (int id, String nome, float valor, int idContaAssociada, String data) {
+        super(id, nome, valor, idContaAssociada, data, "despesa");
     }
 
-    public DespesaDTO (String nome, float valor, ContaDTO contaAssociada, String data) {
-        super(nome, valor, contaAssociada, data);
+    public DespesaDTO (String nome, float valor, int idContaAssociada, String data) {
+        super(nome, valor, idContaAssociada, data, "despesa");
     }
 
     // -------------------------------------------------------------------------

@@ -2,7 +2,6 @@ package com.felipesucupira.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.felipesucupira.transacoes.Transacao;
 
 public class UsuarioDTO {
     private int id;
@@ -14,8 +13,20 @@ public class UsuarioDTO {
 
     // -------------------------------------------------------------------------
     
+    public UsuarioDTO() {
+        
+    }
+
     public UsuarioDTO(int id, String nome, String senha, List<ContaDTO> listaContas, List<TransacaoDTO> listaTransacoes, float balancoTotal) {
         this.id = id;
+        this.nome = nome;
+        this.senha = senha;
+        this.listaContas = listaContas;
+        this.listaTransacoes = listaTransacoes;
+        this.balancoTotal = balancoTotal;
+    }
+
+    public UsuarioDTO(String nome, String senha, List<ContaDTO> listaContas, List<TransacaoDTO> listaTransacoes, float balancoTotal) {
         this.nome = nome;
         this.senha = senha;
         this.listaContas = listaContas;

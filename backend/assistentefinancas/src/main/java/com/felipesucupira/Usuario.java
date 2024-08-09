@@ -11,9 +11,7 @@ public class Usuario {
     private String nome;
     private String senha;
     private List<Conta> listaContas = new ArrayList<Conta>();
-    int ultimoIdConta = 1;
     private List<Transacao> listaTransacoes = new ArrayList<Transacao>();
-    int ultimoIdTransacao = 1;
     private float balancoTotal = 0;
     private RelacaoTransacoesContasHandler mediatorTransacoesContas;
 
@@ -79,12 +77,18 @@ public class Usuario {
     }
 
     public void adicionarListaContas(List<Conta> listaContas) {
+        if (listaContas.isEmpty()) {
+            return;
+        }
         for (Conta conta : listaContas) {
             adicionarConta(conta);
         }
     }
 
     public void adicionarListaTransacoes(List<Transacao> listaTransacoes) {
+        if (listaTransacoes.isEmpty()) {
+            return;
+        }
         for (Transacao transacao : listaTransacoes) {
             adicionarTransacao(transacao);
         }
@@ -98,14 +102,9 @@ public class Usuario {
         contaAdicionada.setMediatorTransacoesContas(mediatorTransacoesContas);
         mediatorTransacoesContas.notifyContaCriada(contaAdicionada);
         listaContas.add(contaAdicionada);
-        contaAdicionada.setId(ultimoIdConta);
-        ultimoIdConta++;
     }
         
-    public void adicionarTransacao(Transacao transacao) {
-        System.out.println("Adicionando transacao ao usuário");
-        System.out.println(transacao.getContaAssociada() == listaContas.get(0));
-        
+    public void adicionarTransacao(Transacao transacao) {        
         if (!contaExiste(transacao.getContaAssociada())) {
             throw new IllegalArgumentException("A conta associada à transação não existe no usuário.");
         } else if (transacaoExiste(transacao)) {
@@ -116,8 +115,6 @@ public class Usuario {
         mediatorTransacoesContas.notifyTransacaoAdicionada(transacao);
         
         listaTransacoes.add(transacao);
-        transacao.setId(ultimoIdTransacao);
-        ultimoIdTransacao++;
         
         if (transacao instanceof Transferencia) {
             Transferencia transferencia = (Transferencia) transacao;
@@ -126,6 +123,17 @@ public class Usuario {
         }
     }
     
+    public void deletarContaPorId(int id) {
+        Conta contaDeletada = null;
+        for (Conta conta : listaContas) {
+            if (conta.getId() == id) {
+                contaDeletada = conta;
+            }
+        }
+
+        deletarConta(contaDeletada);
+    }
+
     public void deletarConta(int index) {
         Conta contaDeletada = listaContas.get(index);
         deletarConta(contaDeletada);
@@ -133,6 +141,7 @@ public class Usuario {
     
     public void deletarConta(Conta conta) {
         if (!contaExiste(conta)) {
+            System.out.println("Conta id " + conta.getId() + " nome " + conta.getNome());
             throw new IllegalArgumentException("A conta sendo deletada não existe no usuário.");
         }
         

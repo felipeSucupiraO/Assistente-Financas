@@ -2,9 +2,6 @@ package com.felipesucupira.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.cglib.transform.TransformingClassLoader;
-
 import com.felipesucupira.Conta;
 import com.felipesucupira.Usuario;
 import com.felipesucupira.transacoes.Despesa;
@@ -27,6 +24,11 @@ public class DTOConverter {
         return new UsuarioDTO(usuario.getId(), usuario.getNome(), usuario.getSenha(), listaContasDTO, listaTransacoesDTO, usuario.getBalancoTotal());
     }
 
+    public static Usuario converterUsuarioDTO(UsuarioDTO usuarioDTO) {
+        // the id 0 is a temporary id that will be changed in the UsuarioController
+        return new Usuario(0, usuarioDTO.getNome(), usuarioDTO.getSenha());
+    }
+
     public static ContaDTO converterConta(Conta conta) {
         return new ContaDTO(conta.getId(), conta.getNome(), conta.getSaldo());
     }
@@ -37,23 +39,23 @@ public class DTOConverter {
 
     public static TransacaoDTO converterTransacao(Transacao transacao) {
         if (transacao instanceof Despesa) {
-            return new DespesaDTO(transacao.getId(), transacao.getNome(), transacao.getValor(), converterConta(transacao.getContaAssociada()), transacao.getData().toString());
+            return new DespesaDTO(transacao.getId(), transacao.getNome(), transacao.getValor(), transacao.getContaAssociada().getId(), transacao.getData().toString());
         } else if (transacao instanceof Receita) {
-            return new ReceitaDTO(transacao.getId(), transacao.getNome(), transacao.getValor(), converterConta(transacao.getContaAssociada()), transacao.getData().toString());
+            return new ReceitaDTO(transacao.getId(), transacao.getNome(), transacao.getValor(), transacao.getContaAssociada().getId(), transacao.getData().toString());
         } else {
             Transferencia transferencia = (Transferencia) transacao;
-            return new TransferenciaDTO(transferencia.getId(), transferencia.getNome(), transferencia.getValor(), converterConta(transferencia.getContaAssociada()), converterConta(transferencia.getContaDestino()), transferencia.getData().toString());
+            return new TransferenciaDTO(transferencia.getId(), transferencia.getNome(), transferencia.getValor(), transferencia.getContaAssociada().getId(), transferencia.getContaDestino().getId(), transferencia.getData().toString());
         }
     }
     
     public static Transacao converterTransacaoDTO(TransacaoDTO transacaoDTO) {
         if (transacaoDTO instanceof DespesaDTO) {
-            return new Despesa(transacaoDTO.getNome(), transacaoDTO.getValor(), converterContaDTO(transacaoDTO.getContaAssociada()), transacaoDTO.getData().toString());
+            return new Despesa(transacaoDTO.getNome(), transacaoDTO.getValor(), null, transacaoDTO.getData().toString());
         } else if (transacaoDTO instanceof ReceitaDTO) {
-            return new Despesa(transacaoDTO.getNome(), transacaoDTO.getValor(), converterContaDTO(transacaoDTO.getContaAssociada()), transacaoDTO.getData().toString());
+            return new Receita(transacaoDTO.getNome(), transacaoDTO.getValor(), null, transacaoDTO.getData().toString());
         } else {
             TransferenciaDTO transferenciaDTO = (TransferenciaDTO) transacaoDTO;
-            return new Transferencia(transferenciaDTO.getNome(), transferenciaDTO.getValor(), converterContaDTO(transferenciaDTO.getContaAssociada()), converterContaDTO(transferenciaDTO.getContaDestino()), transferenciaDTO.getData().toString());
+            return new Transferencia(transferenciaDTO.getNome(), transferenciaDTO.getValor(), null, null, transferenciaDTO.getData().toString());
         } 
     }
 }
